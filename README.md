@@ -3,7 +3,7 @@
 A proof-of-concept for using one-way TLS on cluster-local traffic.
 
 Using:
-- [cert-manager](https://cert-manager.io/docs/) to issue certificates
+- [cert-manager](https://cert-manager.io/docs/) to issue certificates and manage a private CA
 - [kind](https://kind.sigs.k8s.io/) to run a local Kubernetes cluster
 - [trust-manager](https://cert-manager.io/docs/trust/) to distribute the CA to all namespaces
 
