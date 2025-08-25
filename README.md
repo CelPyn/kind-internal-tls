@@ -1,6 +1,6 @@
 # Kind internal TLS
 
-A proof-of-concept for using TLS on cluster-local traffic.
+A proof-of-concept for using one-way TLS on cluster-local traffic.
 
 Using:
 - [cert-manager](https://cert-manager.io/docs/) to issue certificates
