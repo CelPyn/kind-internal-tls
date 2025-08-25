@@ -1,0 +1,18 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: server-cert
+  namespace: app
+spec:
+  secretName: server-tls
+  duration: 8760h
+  renewBefore: 720h
+  commonName: server.app.svc.cluster.local
+  dnsNames:
+    - server
+    - server.app
+    - server.app.svc
+    - server.app.svc.cluster.local
+  issuerRef:
+    name: private-ca-issuer
+    kind: ClusterIssuer

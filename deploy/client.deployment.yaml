@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: client
+  name: client
+  namespace: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      labels:
+        app: client
+    spec:
+      containers:
+        - image: kind-tls-client:v1.0.0
+          name: client
+          env:
+            - name: DESTINATION
+              value: "server.app.svc.cluster.local"
+          resources: {}
+          ports:
+            - containerPort: 8080
+              name: http
+          readinessProbe:
+            httpGet:
+              path: /readiness
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /liveness
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 3
+          volumeMounts:
+            - mountPath: "/usr/local/private-ca"
+              name: ca-bundle
+              readOnly: true
+      volumes:
+        - name: ca-bundle
+          configMap:
+            name: ca-bundle
+            items:
+              - key: bundle.pem
+                path: bundle.pem

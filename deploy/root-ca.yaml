@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: root-ca
+  # This is a footgun, if you want to use a ClusterIssuer based on this CA, the secret which contains the ca.crt must be in the cert-manager namespace
+  # https://cert-manager.io/docs/configuration/selfsigned/#bootstrapping-ca-issuers
+  namespace: cert-manager
+spec:
+  isCA: true
+  commonName: root-ca
+  secretName: root-ca-secret
+  issuerRef:
+    name: selfsigned-root-issuer
+    kind: ClusterIssuer
